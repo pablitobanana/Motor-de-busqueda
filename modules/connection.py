@@ -9,7 +9,7 @@ def connection_mongo():
         collection = db['urls']
         return collection
     except Exception as ex:
-        print("No se pudo conectar en la base de datos: ",ex)
+        print("No se pudo conectar en la base de datos: ", ex)
 
 
 def getLinks():
@@ -19,7 +19,7 @@ def getLinks():
         for elements in connection.find({"checked": False}):
             listaLinks.append(elements)
     except Exception as ex:
-        print( "no se pudieron extraer los links: ",ex )
+        print("no se pudieron extraer los links: ", ex)
     return listaLinks
 
 
@@ -30,16 +30,45 @@ def is_checked(url):
         newvalues = {"$set": {"checked": True}}
         connection.update_one(my_query, newvalues)
     except Exception as e:
-        print("no se pudo marcar como checked: ",e)
+        print("no se pudo marcar como checked: ", e)
 
 
 def add_new_link(url_list):
+    listaURLS = []
     for url in url_list:
-        document_structure = {"_id": url, "checked": False}
-        try:
-            connection = connection_mongo()
-            connection.insert_one(document_structure)
-            print("Agregado exitosamente")
-        except Exception as e:
-            print("no se pudieron agregar: ",url,"\n",e)
+        document_structure = {"_id": url, "checked": False, "ranking":0}
+        listaURLS.append(document_structure)
+    try:
+        connection = connection_mongo()
+        connection.insert_many(listaURLS)
+    except Exception as e:
+        pass
+            #  print("no se pudieron agregar: ", len(listaURLS))
+
+def ranking(urls_unchecked):
+    connection = connection_mongo()
+    unadded = []
+    for urls in urls_unchecked:
+        my_query = {"_id": urls}
+        link = connection.find_one(my_query)
+        if link != None:
+            try:
+                rank = link["ranking"] + 1
+                newvalues = {"$set": {"ranking": rank }}
+                connection.update_one(my_query, newvalues)
+            except Exception as e:
+                print("no se pudo agregar al ranking")
+        else:
+            unadded.append(urls)
+    return unadded
+
+
+def add_words_and_titles(url,words_and_titles):
+    try:
+        connection = connection_mongo()
+        my_query = {"_id": url['_id']}
+        newvalues = {"$set": words_and_titles}
+        connection.update_one(my_query, newvalues)
+    except Exception as e:
+        print("no se pudo agrear las palabras claves de: ",url['_id'] )
 
