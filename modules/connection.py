@@ -72,3 +72,20 @@ def add_words_and_titles(url,words_and_titles):
     except Exception as e:
         print("no se pudo agrear las palabras claves de: ",url['_id'] )
 
+def serching(request):
+    palabras = request.split()
+    try:
+        connection = connection_mongo()
+    except Exception as e:
+        pass
+    lista_links_encontrados = []
+    for word in palabras:
+        try:
+            links = connection.find({"palabras": word})
+            if links != None:
+                for link in links:
+                    lista_links_encontrados.append(link)
+        except Exception as e:
+            pass
+    lista_acomodada = sorted(lista_links_encontrados, key=lambda links : links['ranking'], reverse=True)
+    return lista_acomodada
