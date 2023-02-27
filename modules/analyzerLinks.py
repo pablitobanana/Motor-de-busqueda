@@ -42,12 +42,12 @@ def analyzing_text_page(bs):
     words_and_titles = {}
     try:
         words_and_titles["title"] = bs.title.string
-    except Exception as e:
+    except Exception:
         words_and_titles["title"] = None
         #  print("no se pudo extraer el title o no cuenta con uno")
     try:
         words_and_titles["h1"] = bs.h1.string
-    except Exception as e:
+    except Exception:
         words_and_titles["h1"] = None
         #  print("no se pudo extraer el h1 o no cuenta con uno")
     try:
@@ -68,7 +68,7 @@ def analyzing_text_page(bs):
         for word, count in word_counts.most_common(10):
             num += 1
             words_and_titles["palabras"].append(word)
-    except Exception as ex:
+    except Exception:
         print("no se pudo extraer las palabras de la pagina")
 
     return words_and_titles

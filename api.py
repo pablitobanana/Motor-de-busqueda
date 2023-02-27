@@ -1,11 +1,11 @@
-from typing import Union
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from modules.connection import serching
-from fastapi import FastAPI
-#  uvicorn api:app --reload
-app = FastAPI()
+import json
+app = Flask(__name__)
+CORS(app)
 
-
-@app.get("/")
-def read_root(request:str):
-    results = serching(request)
-    return {"data": results }
+@app.route("/",methods=["POST"])
+def index():
+    results = serching(request.json["request"])
+    return {"data":results}

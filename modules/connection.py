@@ -69,14 +69,14 @@ def add_words_and_titles(url,words_and_titles):
         my_query = {"_id": url['_id']}
         newvalues = {"$set": words_and_titles}
         connection.update_one(my_query, newvalues)
-    except Exception as e:
+    except Exception:
         print("no se pudo agrear las palabras claves de: ",url['_id'] )
 
 def serching(request):
     palabras = request.split()
     try:
         connection = connection_mongo()
-    except Exception as e:
+    except Exception:
         pass
     lista_links_encontrados = []
     for word in palabras:
@@ -85,7 +85,7 @@ def serching(request):
             if links != None:
                 for link in links:
                     lista_links_encontrados.append(link)
-        except Exception as e:
+        except Exception:
             pass
     lista_acomodada = sorted(lista_links_encontrados, key=lambda links : links['ranking'], reverse=True)
     return lista_acomodada
