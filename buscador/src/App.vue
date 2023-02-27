@@ -27,21 +27,22 @@ const buscar = async (e) => {
 </script>
 
 <template>
-  <div id="barraBusqueda" class="row">
-    <h1 class="m-auto col-12 text-center mt-3">PABLITOBANANIN</h1>
-    <form action="" class="col-6 m-auto mt-3">
-      <div class="input-group">
-        <input type="text" name="request" id="buscador" class="form-control" v-model="text" placeholder="Buscar en internet"/>
-        <button type="submit" class="input-group-text" @click="buscar"><i class="bi bi-search"></i></button>
-      </div>
-    </form>
-  </div>
-  <div id="resultados" class=" mt-3">
-      <div class="card row col-6 ms-3 mb-2" v-for="(link,i) in listaLinks" :key="i">
+  <div class="container">
+    <div id="barraBusqueda" class="row col">
+      <h1 class="m-auto col-12 text-center mt-3">PABLITOBANANIN</h1>
+      <form action="" class="col-6 m-auto mt-3">
+        <div class="input-group">
+          <input type="text" name="request" id="buscador" class="form-control" v-model="text" placeholder="Buscar en internet"/>
+          <button type="submit" class="input-group-text" @click="buscar"><i class="bi bi-search"></i></button>
+        </div>
+      </form>
+    </div>
+    <div id="resultados" class="mt-4">
+      <div class="card row col-md-6 mb-2" v-for="(link,i) in listaLinks" :key="i">
         <a :href="link._id" class="h3 text-decoration-none ">{{link["title"]}}</a>
         <a :href="link._id">{{link["_id"]}}</a>
-
       </div>
+    </div>
   </div>
 </template>
 

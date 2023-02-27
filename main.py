@@ -7,7 +7,7 @@ from modules.analyzerLinks import analyzer
 try:
     links_iniciales = ["https://expansion.mx/", "https://www.unotv.com/",
              "https://www.weather.com/wx/today/", "https://www.ibm.com/","https://es.wikipedia.org/wiki/Ajedrez",
-             "https://news.google.com/","https://www.bbc.com/mundo", "https://www.bbc.com/"]
+             "https://news.google.com/","https://www.bbc.com/mundo", "https://www.bbc.com/","https://www.lavozdemichoacan.com.mx/"]
     add_new_link(links_iniciales)
 except Exception as e:
     pass
