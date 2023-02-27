@@ -17,7 +17,7 @@ const buscar = async (e) => {
     },
     redirect: 'follow', // manual, *follow, error
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify({"request":text.value}) // body data type must match "Content-Type" header
+    body: JSON.stringify({"request":text.value.toLowerCase()}) // body data type must match "Content-Type" header
   });
   const respuesta = await res.json() 
   listaLinks.value = respuesta['data']
