@@ -51,6 +51,16 @@ def analyzing_text_page(bs):
         words_and_titles["h1"] = None
         #  print("no se pudo extraer el h1 o no cuenta con uno")
     try:
+        for parrafos in bs.find_all("p"):
+            if len(parrafos.string) > 30:
+                words_and_titles["p"] = parrafos.string
+                break
+            else:
+                words_and_titles["p"] = None
+    except Exception:
+        words_and_titles["p"] = None
+        #  print("no se pudo extraer el h1 o no cuenta con uno")
+    try:
         text = bs.get_text()
 
 # Limpiar el texto eliminando caracteres no alfabéticos y stopwords

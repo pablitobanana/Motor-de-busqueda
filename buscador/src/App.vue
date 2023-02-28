@@ -39,8 +39,9 @@ const buscar = async (e) => {
     </div>
     <div id="resultados" class="mt-4">
       <div class="card row col-md-6 mb-2" v-for="(link,i) in listaLinks" :key="i">
-        <a :href="link._id" class="h3 text-decoration-none ">{{link["title"]}}</a>
-        <a :href="link._id">{{link["_id"]}}</a>
+        <a :href="link._id" class="h2 text-decoration-none fs-5">{{link["title"]}}</a>
+        <a :href="link._id" class="fs-6 fw-lighter">{{link["_id"]}}</a>
+        <p class="fs-6">{{link["p"]}}</p>
       </div>
     </div>
   </div>
